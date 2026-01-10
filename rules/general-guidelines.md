@@ -239,7 +239,65 @@ Use cases must not import:
     
 - environment variables
     
+Single Responsibility and Layering (CleanArch)
 
+**Golden Rule:** _all dependencies point inward_.
+
+**Domain**
+
+- Entities, VOs, invariant rules.
+
+- **No** NestJS, **no** TypeORM/Prisma, **no** external libraries.
+
+- Domain-specific errors (e.g., `InsufficientStockError`).
+
+**Application**
+
+- Use cases and ports (interfaces).
+
+- Flow orchestration (transactions, gateway calls, event publishing).
+
+- Returns well-defined **results** (e.g., `Either`/`Result`) and not `HttpException`.
+
+**Infrastructure**
+
+- Implementations: PostgreSQL repositories, caching, queues, integrations.
+
+- Serialization details, query builder, SQL, retries.
+
+**Interface/Adapters (NestJS)**
+
+- Controllers, DTOs, pipes, guards, interceptors.
+
+- Request Maps → UseCase Input and Output → Response.
+
+- No business rules here.
+
+**Review Checklist**
+
+- Controller has `@Body/@Query` + validation + calls use case + returns DTO ✅
+
+- Use case contains business rules/flow ✅
+
+- Repository does not "decide" business rules, only persists/queries ✅
+
+- Domain does not import any infrastructure ✅
+
+---
+
+### 1.3 Coupling and Contracts: Ports and Adapters
+
+**Rules**
+
+- Use case depends on interfaces: `OrderRepository`, `CachePort`, `EventBusPort`
+
+- Infrastructure implementation: `PgOrderRepository`, `RedisCacheAdapter`, `OtelEventBusAdapter`
+
+**Best Practices**
+
+- **Do not** insert `DataSource`, `PrismaClient`, `RedisClient` directly into the UseCase.
+
+- Prefer **small interfaces** (ISPs). For example, instead of a giant `CacheService`, use `CacheGetPort` or `CacheSetPort`.
 ---
 
 ## 9. Composition
