@@ -1,41 +1,347 @@
-# Coding Standards
+# Coding Standards — Clean Architecture (TypeScript)
 
-All source code must be written in English.
-Use camelCase for declaring methods, functions, and variables, PascalCase for classes and interfaces, and kebab-case for files and directories.
-use SCREAMING_SNAKE_CASE for constants
-Avoid abbreviations, but also avoid writing very long names (more than 30 characters).
-Declare constants to represent magic numbers with readability.
-Methods and functions must perform a clear and well-defined action, and this should be reflected in their name, which should begin with a verb, never a noun.
-Whenever possible, avoid passing more than three parameters; use objects if necessary.
-Avoid side effects. In general, a method or function should perform a mutation or query. Never allow a query to have side effects.
-Never nest more than two if/else statements. Always use early returns.
-Never use flag parameters to control the behavior of methods and functions. In these cases, extract them to methods and functions with behaviors. Specific
-Avoid long methods, with more than 26 lines
-Avoid long classes, with more than 260 lines
-Always invert dependencies on external resources in both use cases and interface adapters using the Dependency Inversion Principle
-Avoid blank lines within methods and functions
-Avoid using comments whenever possible
-Never declare more than one variable on the same line
-Declare variables as close as possible to where they will be used
-Prefer composition over inheritance whenever possible
+## 1. Language & Naming
 
-# Review
+**All source code must be written in English.**
 
-After completing each task, run the tests and ensure they work.
-Check code coverage; it must comply with the established guidelines.
-Check code formatting to ensure it follows the project guidelines.
-Run the linter to check if it is breaking any defined guidelines.
-Check if build are working
-Check if any part of the code is breaking any established best practices.
-Check if any comments are missing.
-Check if any values ​​are hardcoded.
-Check if there are any unused imports.
-Check if there are any unused variables.
-Look for opportunities to make the code clearer and more objective.
+### Naming conventions
 
-# Logging
+| Element                       | Convention           | Example                                  |
+| ----------------------------- | -------------------- | ---------------------------------------- |
+| Classes & Interfaces          | PascalCase           | `OrderService`, `UserRepository`         |
+| Methods, functions, variables | camelCase            | `calculateTotal`, `userId`               |
+| Files & folders               | kebab-case           | `order-service.ts`, `inventory-adapter/` |
+| Constants                     | SCREAMING_SNAKE_CASE | `MAX_RETRY_COUNT`                        |
 
-Never store logs in files; always redirect them through the process itself.
-Never log sensitive data such as people's names, addresses, and credit card details.
-Always be clear in log messages, without exaggerating or using long text.
-Never silence exceptions; always log.
+### Abbreviations
+
+Avoid abbreviations unless they are:
+
+- Industry standard
+    
+- Unambiguous
+    
+- Widely known
+    
+
+**Allowed examples**  
+`id`, `url`, `http`, `api`, `dto`, `sql`, `db`, `ui`, `sku`, `ttl`, `jwt`
+
+**Disallowed**  
+`tmp`, `calc`, `info`, `obj`, `data1`, `misc`
+
+### Name length
+
+- Prefer **10–30 characters**
+    
+- If a name exceeds ~30 chars, the abstraction is probably wrong
+    
+
+---
+
+## 2. Functions & Methods
+
+### Single responsibility
+
+Every function must perform **one clear action**, reflected in its name.
+
+- Must start with a **verb**
+    
+- Must not mix multiple responsibilities
+    
+
+Good:
+
+`calculateTotal() validateEmail() persistOrder()`
+
+Bad:
+
+`order() data() process()`
+
+---
+
+### Parameters
+
+- Prefer **≤ 3 positional parameters**
+    
+- If more are needed → use an **options object**
+    
+
+Good:
+
+`createUser({ name, email, role })`
+
+Bad:
+
+`createUser(name, email, role, status, createdAt)`
+
+---
+
+### Commands vs Queries
+
+Follow **CQRS at function level**:
+
+|Type|Rule|
+|---|---|
+|Query|Must NOT modify domain state|
+|Command|May mutate state|
+
+Logging, metrics, and tracing are allowed in both.
+
+A function may **not** both mutate state and return domain data.
+
+---
+
+### Boolean flags
+
+Avoid boolean flags that change behavior.
+
+Bad:
+
+`calculateTotal(order, true)`
+
+Good:
+
+`calculateWithTax(order) calculateWithoutTax(order)`
+
+If variation is legitimate:
+
+`calculateTotal(order, { includeTax: true })`
+
+---
+
+## 3. Control Flow
+
+### Conditionals
+
+- Use **guard clauses**
+    
+- Avoid deep nesting (>2 levels)
+    
+
+Good:
+
+`if (!user) return error if (!user.isActive) return error`
+
+Bad:
+
+`if (user) {   if (user.isActive) {     if (user.hasPermission) {`
+
+Prefer:
+
+- `switch`
+    
+- maps
+    
+- polymorphism
+    
+
+---
+
+## 4. Size Limits (Soft Rules)
+
+|Element|Preferred limit|
+|---|---|
+|Function|≤ 40 lines|
+|Class|≤ 350 lines|
+
+Exceeding this requires:
+
+- clear justification
+    
+- or refactor by responsibility
+    
+
+These are **quality thresholds**, not mechanical limits.
+
+---
+
+## 5. Variables
+
+- Never declare multiple variables on one line
+    
+- Declare variables as close as possible to their use
+    
+- Always prefer `const`
+    
+- Avoid mutation unless required
+    
+
+---
+
+## 6. Comments
+
+Avoid comments that repeat what the code says.
+
+Comments are **mandatory** when:
+
+- Business rules are non-obvious
+    
+- There is a workaround
+    
+- Performance or timezones are involved
+    
+- The code is intentionally surprising
+    
+
+---
+
+## 7. Magic Numbers & Constants
+
+All meaningful literals must be named.
+
+Bad:
+
+`if (attempts > 3)`
+
+Good:
+
+`if (attempts > MAX_LOGIN_ATTEMPTS)`
+
+---
+
+## 8. Clean Architecture Boundaries
+
+### Dependency rule
+
+Inner layers must never depend on outer layers.
+
+**External resources include**
+
+- Database
+    
+- HTTP
+    
+- Message brokers
+    
+- Filesystem
+    
+- Time
+    
+- Randomness
+    
+- Environment variables
+    
+
+These must be accessed through **ports (interfaces)**.
+
+`UseCase → Port → Adapter → Infrastructure`
+
+Use cases must not import:
+
+- ORM
+    
+- HTTP clients
+    
+- Redis
+    
+- filesystem
+    
+- environment variables
+    
+
+---
+
+## 9. Composition
+
+Prefer:
+
+- composition
+    
+- dependency injection
+    
+- interfaces
+    
+
+Avoid:
+
+- deep inheritance
+    
+- framework-coupled domain objects
+    
+
+---
+
+# 🔍 Review Checklist (Every Task)
+
+Before merging:
+
+### Build & Tests
+
+- `npm test`
+    
+- `npm run build`
+    
+- `npm run lint`
+    
+
+### Quality gates
+
+- Test coverage:
+    
+    - Domain & Use Cases ≥ 90%
+        
+    - Overall ≥ 80%
+        
+- No failing lint rules
+    
+- No unused imports
+    
+- No unused variables
+    
+- No TODOs without ticket reference
+    
+
+### Architecture
+
+- No use case imports adapters, ORM, or frameworks
+    
+- All external resources are behind ports
+    
+
+### Code health
+
+- No hardcoded business values
+    
+- No duplicated logic
+    
+- No boolean behavior flags
+    
+- No unclear names
+    
+
+---
+
+# 📜 Logging Rules
+
+- Never write logs to files
+    
+- Never log:
+    
+    - Names
+        
+    - Emails
+        
+    - Addresses
+        
+    - Payment data
+        
+    - Tokens
+        
+- Logs must be short, factual, and structured
+    
+
+### Errors
+
+Errors must be:
+
+- handled **or**
+    
+- propagated to a centralized handler
+    
+
+Never:
+
+- swallow errors
+    
+- log the same error multiple times
