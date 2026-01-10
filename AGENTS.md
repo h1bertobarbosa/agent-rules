@@ -17,6 +17,7 @@ For React component architecture and hooks patterns: @docs/react-patterns.md
 For REST API design and error handling: @docs/api-standards.md
 For testing strategies and coverage requirements: @docs/testing-guidelines.md
 For SQL database requirements: @docs/sql-guidelines.md
+For NoSQL database(mongoose) requirements: @docs/mongoose-guidelines.md
 
 ## General Guidelines
 
