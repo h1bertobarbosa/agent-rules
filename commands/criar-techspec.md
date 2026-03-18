@@ -17,17 +17,17 @@ You are a technical specifications specialist focused on producing clear, implem
 
 ## Template and Inputs
 
-- Tech Spec Template: `@agent-rules/templates/techspec-template.md`
+- Tech Spec Template: `~/Projects/agent-rules/commands/templates/techspec-template.md`
 
-- Required PRD: `tasks/prd-[feature-name]/prd.md`
+- Required PRD: `./tasks/prd-[feature-name]/prd.md`
 
-- Output document: `tasks/prd-[feature-name]/techspec.md`
+- Output document: `./tasks/prd-[feature-name]/techspec.md`
 
 ## Prerequisites
 
 - Review project standards in @AGENTS.md
 
-- Confirm that the PRD exists in `tasks/prd-[feature-name]/prd.md`
+- Confirm that the PRD exists in `./tasks/prd-[feature-name]/prd.md`
 
 ## Workflow Work Plan
 
@@ -71,14 +71,14 @@ Ask focused questions about:
 
 ### 5. Generate Tech Spec (Required)
 
-- Use `@agent-rules/templates/techspec-template.md` as the exact structure
+- Use `~/Projects/agent-rules/commands/templates/techspec-template.md` as the exact structure
 - Provide: architecture overview, component design, interfaces, models, endpoints, integration points, impact analysis, testing strategy, observability
 - Keep to ~2,000 words
 - Avoid repeating functional requirements from the PRD; Focus on how to implement
 
 ### 6. Save Tech Spec (Required)
 
-- Save as: `tasks/prd-[feature-name]/techspec.md`
+- Save as: `./tasks/prd-[feature-name]/techspec.md`
 
 - Confirm write operation and path
 

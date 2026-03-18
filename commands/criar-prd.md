@@ -18,7 +18,7 @@ You are an expert in creating PRDs (Product Requirements Documents) focused on p
 
 ## Template Reference
 
-- Source template: `@agent-rules/templates/prd-template.md`
+- Source template: `./templates/prd-template.md`
 
 - Final file name: `prd.md`
 
@@ -51,7 +51,7 @@ Create a PRD development plan including:
 
 ### 3. Write the PRD (Required)
 
-- Use the `@agent-rules/templates/prd-template.md` template
+- Use the `~/Projects/agent-rules/commands/templates/prd-template.md` template
 
 - Focus on the WHAT and WHY, not the HOW
 

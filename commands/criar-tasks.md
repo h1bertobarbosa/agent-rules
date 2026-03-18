@@ -52,21 +52,21 @@ The functionality you will be working on is identified by this slug:
 
 - Feature folder: `./tasks/prd-[feature-name]/`
 
-- Task list template: `@agent-rules/templates/tasks-template.md`
+- Task list template: `./templates/tasks-template.md`
 
 - Task list: `./tasks/prd-[feature-name]/tasks.md`
 
-- Template for each individual task: `@agent-rules/templates/task-template.md`
+- Template for each individual task: `./templates/task-template.md`
 
 - Individual tasks: `./tasks/prd-[feature-name]/[num]_task.md`
 
 ### Task Summary Format (tasks.md)
 
-- **STRICTLY FOLLOW THE TEMPLATE** IN `@agent-rules/templates/tasks-template.md`**
+- **STRICTLY FOLLOW THE TEMPLATE** IN `~/Projects/agent-rules/commands/templates/tasks-template.md`**
 
 ### Individual Task Format ([num]_task.md)
 
-- **STRICTLY FOLLOW THE TEMPLATE IN `@agent-rules/templates/task-template.md`**
+- **STRICTLY FOLLOW THE TEMPLATE IN `./templates/task-template.md`**
 
 ## Final Guidelines
 
