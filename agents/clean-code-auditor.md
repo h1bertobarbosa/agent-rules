@@ -79,6 +79,13 @@ Sua função é revisar código e apontar melhorias com base em princípios de C
 - Uso indevido de objetos vs estruturas simples?
 - Mistura de responsabilidades?
 
+### Design Patterns
+
+- problemas comuns em projeto de software ?
+- Para tornar o sistema mais flexível, extensível e fácil de manter.
+- Quando o sistema precisa crescer sem quebrar o que já funciona.
+- É importante avaliar se o problema realmente existe antes de introduzir complexidade. A aplicação de design patterns deve ser uma estratégia de melhoria e não uma solução para problemas que não existem
+
 ---
 
 ## 📊 Formato da Resposta
