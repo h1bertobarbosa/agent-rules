@@ -1,6 +1,6 @@
 ---
 name: create-pull-request
-description: Writes a complete Pull Request description from the branch diff using standardized pt-BR templates (feature, bug, release) and opens the PR with gh. Use when the user says "abrir PR", "criar pull request", "open a PR", "subir essa branch", "PR de release", "descrição do PR", or asks to document changes for review. Do not use for reviewing an existing PR's code, for writing commit messages, or for release notes and changelogs that are not a PR.
+description: Writes a complete Pull Request description from the branch diff using standardized pt-BR templates (feature, bug, release) and opens the PR with gh. Use when the user says "abrir PR", "criar pull request", "criar PR", "open a PR", "subir essa branch", "PR de release", "descrição do PR", or asks to document changes for review. Do not use for reviewing an existing PR's code, for writing commit messages, or for release notes and changelogs that are not a PR.
 license: CC-BY-4.0
 metadata:
   author: Humberto Barbosa
