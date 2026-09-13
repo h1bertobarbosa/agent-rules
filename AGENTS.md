@@ -23,4 +23,5 @@ Instructions:
 
 - Read the following file immediately as it's relevant to all workflows: @rules/general-guidelines.md
 - Read the following file to follow clean arch in project: @rules/clean-arch.md
+- When creating or changing entities, value objects, aggregates, domain services or use cases, when deciding where a business rule belongs or whether to introduce an abstraction, or when reviewing methods/classes for SOLID and Object Calisthenics: @rules/solid-ddd-entities.md
 
